@@ -12,5 +12,6 @@ A little about me:
 
 - I am **Silver III** in League of Legends
 - I am **Bronze II** in Valorant
+  [Visit my Statistics](https://op.gg/lol/summoners/oce/MrChhayT-OC)
 
-[Visit my Statistics](https://op.gg/lol/summoners/oce/MrChhayT-OC)
+![Laugh out loud](https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExcmM0OXNlYzY4cXluN2hlbDBpenN3eTE4aWprYmw5YTRrNnZqZG44NyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/GCO5WNzFmlc0vjK8cA/giphy.gif)
