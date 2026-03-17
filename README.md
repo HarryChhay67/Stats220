@@ -1,18 +1,16 @@
-<html>
-  <h1> Stats220 </h1>
+# Stats220
 
-  <h2> UoA Stats220 S12026 </h2>
+## UoA Stats220 S12026
 
-  <h3> This is my repo for STATS 220. </h3>
-  
-  A little about me:
+### This is my repo for STATS 220.
 
+A little about me:
 
-  <ol>
-  <li>I am undertaking a degree in IT Management and Com Law</li>
-  <li>I am taking STATS 220 because technical Skills like R are important skills for my career choice</li>
-  <li>I am interested in being more confident in using R</li>
-  </ol>
-  
+1. I am undertaking a degree in *IT Management and Com Law*
+2. I am taking STATS 220 because technical skills like R are important skills for my career choice
+3. I am interested in being more confident in using R
 
-<html>
+- I am **Silver III** in League of Legends
+- I am **Bronze II** in Valorant
+
+[Visit my Statistics](https://op.gg/lol/summoners/oce/MrChhayT-OC)
