@@ -1,0 +1,152 @@
+---
+title: Observations on Kate Edgar
+output: html_fragment
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=FALSE)
+library(tidyverse)
+```
+
+```{css}
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f7f4fb;
+  color: #3a3550;
+  line-height: 1.7;
+  margin: 25px;
+}
+
+h1, h2, h3 {
+  color: #5a3e8b;
+  font-weight: 700;
+}
+
+h2 {
+  background-color: #ece3f8;
+  padding: 12px 16px;
+  border-radius: 12px;
+  margin-top: 30px;
+}
+
+p {
+  font-size: 15px;
+  background-color: #ffffff;
+  padding: 12px 16px;
+  border-radius: 10px;
+}
+
+ul {
+  background-color: #ffffff;
+  padding: 12px 20px;
+  border-radius: 10px;
+}
+
+strong {
+  color: #4b2e83;
+}
+```
+
+## What's happening with unattended bags in Kate Level 3?
+
+This dynamic report explores observational data collected from Kate Edger Information Commons Level 3. The main focus is the number of unattended bags or personal items visible at different times of day and in different activity settings.
+
+```{r}
+logged_data <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vSD-3j_weO2oe4Z9wGDzJX9L2YT1fIA9mc6tTqFFS2r5Ks51kag9zwZBGM86GQ-F4Td-pDLPR6ZU1OC/pub?output=csv")
+
+latest_data <- logged_data %>%
+  rename(
+    unattended_bags = "How many unattended bags or personal items are currently visible in Kate Lvl3 as you do the walk of shame finding a desk?
+(enter a number between 0 and 200)",
+    main_activity = "What is the majority of the students around you doing?",
+    time_of_day = "What time of day is it?",
+    smell_level = "How would you rate the stench/odour(s)  (if there is one) on this level right now?"
+  ) %>%
+  mutate(
+    unattended_bags = as.numeric(unattended_bags)
+  )
+
+```
+
+## SUMMARY STATISTICS
+```{r}
+
+total_obs <- nrow(latest_data)
+min_bags <- min(latest_data$unattended_bags, na.rm = TRUE)
+max_bags <- max(latest_data$unattended_bags, na.rm = TRUE)
+mean_bags <- round(mean(latest_data$unattended_bags, na.rm = TRUE), 1)
+
+```
+
+**Total observations:** `r total_obs`  
+**Minimum unattended bags:** `r min_bags`  
+**Maximum unattended bags:** `r max_bags`  
+**Average unattended bags:** `r mean_bags`
+
+
+## Dynamic Comments
+
+A total of `r total_obs` observations were recorded. The minimum number of unattended bags observed was `r min_bags`, the maximum was `r max_bags`, and the average was `r round(mean_bags, 1)`.
+```{r}
+total_obs <- nrow(latest_data)
+min_bags <- min(latest_data$unattended_bags, na.rm = TRUE)
+max_bags <- max(latest_data$unattended_bags, na.rm = TRUE)
+mean_bags <- mean(latest_data$unattended_bags, na.rm = TRUE)
+```
+
+## Chart 1
+
+```{r}
+bags_by_time <- latest_data  %>%
+  group_by(time_of_day) %>%
+  summarise(avg_bags = mean(unattended_bags, na.rm = TRUE))
+
+ggplot(bags_by_time, aes(x = time_of_day, y = avg_bags, fill = time_of_day)) +
+  geom_col(colour = "black") +
+  scale_fill_manual(values = c(
+    "Morning (before 12pm)" = "skyblue",
+    "Afternoon (12pm to 6pm)" = "blue",
+    "Evening (after 6pm)" = "navyblue"
+  )) +
+  labs(
+    title = "Average number of unattended bags by time of day",
+    x = "Time of day",
+    y = "Average unattended bags"
+  ) +
+  theme(legend.position = "none")
+```
+
+This chart shows how the average number of unattended bags changes across morning, afternoon, and evening observations.
+
+## Chart 2
+
+```{r}
+bags_by_activity <- latest_data %>%
+  group_by(main_activity) %>%
+  summarise(avg_bags = mean(unattended_bags, na.rm = TRUE))
+
+ggplot(bags_by_activity, aes(x = main_activity, y = avg_bags, fill = main_activity)) +
+  geom_col(colour = "black") +
+  scale_fill_manual(values = c(
+    "Studying / working on a laptop" = "skyblue",
+    "On their phone / scrolling" = "pink",
+    "Talking or socialising" = "orange",
+    "Away from desk / not present" = "purple",
+    "Eating or drinking" = "green",
+    "Toilet" = "grey"
+  )) +
+  labs(
+    title = "Average number of unattended bags by main activity",
+    x = "Main activity",
+    y = "Average unattended bags"
+  ) +
+  theme(
+    axis.text.x = element_text(angle = 20, hjust = 1),
+    legend.position = "none"
+  )
+```
+
+This chart compares the average number of unattended bags across the main activities observed in the space.
+
+
+
